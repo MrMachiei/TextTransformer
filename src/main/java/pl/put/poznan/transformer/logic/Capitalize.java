@@ -9,7 +9,10 @@ public class Capitalize {
 
     public String[] transform()
     {
-        //Transformer logic here
-        return new String[0];
+        for(int i = 0; i < this.text.length; i++)
+        {
+            this.text[i] = this.text[i].substring(0, 1).toUpperCase() + this.text[i].substring(1);
+        }
+        return this.text;
     }
 }

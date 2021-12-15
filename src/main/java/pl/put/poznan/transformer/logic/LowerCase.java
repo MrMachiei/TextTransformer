@@ -9,7 +9,10 @@ public class LowerCase {
 
     public String[] transform()
     {
-        //Transformer logic here
-        return new String[0];
+        for(int i = 0; i < this.text.length; i++)
+        {
+            this.text[i] = this.text[i].toLowerCase();
+        }
+        return this.text;
     }
 }
