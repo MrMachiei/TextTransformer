@@ -10,16 +10,32 @@ public class Inverse {
     public String[] transform()
     {
 
-        String tail;
-        for(int i = 0; i < this.text.length; i++)
-        {
-            tail = "";
-            for(int j = 0; j < this.text[i].length(); j++)
-            {
-                tail += this.text[i].charAt(this.text[i].length()-j);
-            }
-            this.text[i] = this.text[i].charAt(0) + tail;
+    String reversed;
+    for(int i = 0; i < this.text.length; i++)
+    {
+      Boolean[] upper = new Boolean[this.text[i].length()];
+      
+      for(int j = 0; j < this.text[i].length(); j++)
+      {
+        if(this.text[i].charAt(j) > 'A' && this.text[i].charAt(j) < 'Z'){
+        	upper[j] = true;
         }
+        else{
+        	upper[j] = false;
+        }
+      }
+
+      reversed = "";
+      for(int j = 0; j < this.text[i].length(); j++)
+      {
+        if(!upper[j]){
+        	reversed += Character.toString(this.text[i].charAt(this.text[i].length()-j-1)).toLowerCase();
+        }
+        else{
+        	reversed += Character.toString(this.text[i].charAt(this.text[i].length()-j-1)).toUpperCase();
+
+        }
+      }
         return this.text;
     }
 }
