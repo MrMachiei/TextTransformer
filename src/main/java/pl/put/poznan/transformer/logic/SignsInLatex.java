@@ -9,14 +9,14 @@ public class SignsInLatex {
 
     public String[] transform()
     {
-        String[] signs = {"\\$", "&", "#", "%", "\\{", "\\}"};
+        String[] signs = {"\\$", "&", "#", "%", "\\{", "}", "_"};
 
         for (int i = 0; i < this.text.length; i++) {
 
             this.text[i] = this.text[i].replaceAll("\\\\","\\\\backslash");
 
             for (int j = 0; j < signs.length; j++) {
-                this.text[i] = this.text[i].replaceAll(signs[i], "\\\\" + signs[i]);
+                this.text[i] = this.text[i].replaceAll(signs[j], "\\\\" + signs[j]);
             }
         }
         return this.text;
