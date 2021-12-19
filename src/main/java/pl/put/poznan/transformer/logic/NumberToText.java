@@ -50,8 +50,7 @@ public class NumberToText {
             if(Numbers[i][0] == Numbers[j][0])
             {
                 int length = NumStr[i].length();
-                Numbers[j][1] += length;
-                Numbers[j][2] += length;
+                Numbers[j][1] += length - Numbers[i][2];
             }
         }
         return Numbers;
@@ -76,7 +75,8 @@ public class NumberToText {
         if (Number >= 20 && Number < 100) return " " + NumberTextPL[18 + Number/10] + TransformNumberToText(Number%10);
         if (Number >= 100 && Number < 1000) return " " + NumberTextPL[27 + Number/100] + TransformNumberToText(Number%100);
         if (Number >= 1000 && Number < 2000) return " " + NumberTextPL[37] + TransformNumberToText(Number%1000);
-        if (Number >= 2000 && Number < 5000) return TransformNumberToText(Number/1000) + " " + NumberTextPL[38] + TransformNumberToText(Number%1000);
+        if ((Number >= 2000 && Number < 1000000) && (Number%10000 >= 2000 && Number%10000 < 5000) && !(Number%100000 >= 11000 && Number < 15000))
+            return TransformNumberToText(Number/1000) + " " + NumberTextPL[38] + TransformNumberToText(Number%1000);
         if (Number >= 5000 && Number < 1000000) return TransformNumberToText(Number/1000) + " " + NumberTextPL[39] + TransformNumberToText(Number%1000);
         return "";
     }
@@ -85,7 +85,7 @@ public class NumberToText {
     {
         int Number = 0;
         int counter = 0;
-        for(int i = end-1; i >= begin; i--)
+        for(int i = begin + end - 1; i >= begin; i--)
         {
             Number += ((int)(ContainingNumber.charAt(i) - '0')) * (Math.pow(10,counter));
             counter++;
@@ -120,7 +120,7 @@ public class NumberToText {
                 {
                     if(Digit) {
                         Digit = false;
-                        NumSpecs[2] = j;
+                        NumSpecs[2] = j - NumSpecs[1];
                         NumbersSpecs = extendArray(NumbersSpecs);
                         NumbersSpecs[counter] = NumSpecs;
                         counter++;
@@ -131,7 +131,7 @@ public class NumberToText {
             }
             if(Digit)
             {
-                NumSpecs[2] = text[i].length();
+                NumSpecs[2] = text[i].length() - NumSpecs[1];
                 NumbersSpecs = extendArray(NumbersSpecs);
                 NumbersSpecs[counter] = NumSpecs;
                 counter++;
