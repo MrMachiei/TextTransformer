@@ -1,23 +1,21 @@
 package pl.put.poznan.transformer.logic;
 
 public class SignsInLatex {
-    private final String[] text;
 
-    public SignsInLatex(String[] text){
+    private String text;
+
+    public SignsInLatex(String text){
         this.text = text;
     }
 
-    public String[] transform()
+    public String transform()
     {
         String[] signs = {"\\$", "&", "#", "%", "\\{", "}", "_"};
 
-        for (int i = 0; i < this.text.length; i++) {
+        this.text = this.text.replaceAll("\\\\","\\\\backslash");
 
-            this.text[i] = this.text[i].replaceAll("\\\\","\\\\backslash");
-
-            for (int j = 0; j < signs.length; j++) {
-                this.text[i] = this.text[i].replaceAll(signs[j], "\\\\" + signs[j]);
-            }
+        for(int j = 0; j < signs.length; j++) {
+            this.text = this.text.replaceAll(signs[j], "\\\\" + signs[j]);
         }
         return this.text;
     }
