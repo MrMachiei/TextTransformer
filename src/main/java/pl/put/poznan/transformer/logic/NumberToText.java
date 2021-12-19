@@ -22,8 +22,7 @@ public class NumberToText {
 
     public String[] transform()
     {
-        int Length = text.length;
-        output = new String[Length];
+        output = new String[text.length];
         int[][] Numbers = GetNumbers();
         String[] NumStr = new String[Numbers.length];
         if (Numbers.length == 0) return output;
