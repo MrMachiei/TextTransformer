@@ -1,25 +1,31 @@
 package pl.put.poznan.transformer.logic;
 
 public class Inverse {
-    private final String[] text;
+    private String text;
 
-    public Inverse(String[] text){
+    public Inverse(String text){
         this.text = text;
     }
 
-    public String[] transform()
-    {
+    public String transform() {
 
-        String tail;
-        for(int i = 0; i < this.text.length; i++)
-        {
-            tail = "";
-            for(int j = 0; j < this.text[i].length(); j++)
-            {
-                tail += this.text[i].charAt(this.text[i].length()-j);
-            }
-            this.text[i] = this.text[i].charAt(0) + tail;
+        String reversed;
+
+        Boolean[] upper = new Boolean[this.text.length()];
+
+        for (int j = 0; j < this.text.length(); j++) {
+            upper[j] = this.text.charAt(j) > 'A' && this.text.charAt(j) < 'Z';
         }
+
+        reversed = "";
+        for (int j = 0; j < this.text.length(); j++) {
+            if (!upper[j]) {
+                reversed += Character.toString(this.text.charAt(this.text.length() - j - 1)).toLowerCase();
+            } else {
+                reversed += Character.toString(this.text.charAt(this.text.length() - j - 1)).toUpperCase();
+            }
+        }
+        this.text = reversed;
         return this.text;
     }
 }
