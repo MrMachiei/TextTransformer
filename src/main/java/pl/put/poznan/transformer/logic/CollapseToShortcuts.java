@@ -5,33 +5,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CollapseToShortcuts {
-    private final String[] text;
-    private Map<String, String> shortcuts;
+    private final String text;
+    private final Map<String, String> shortcuts;
 
-    public CollapseToShortcuts(String[] text){
+    public CollapseToShortcuts(String text){
         this.text = text;
         this.shortcuts = new HashMap<>();
         genMap();
     }
 
-    public String[] transform() throws NoSuchObjectException
+    public String transform() throws NoSuchObjectException
     {
         //Transformer logic here
-        String[] result = new String[text.length];
-        for(int k = 0; k < text.length; k++){
-            String t = text[k];
-            Boolean[] cap = getCapitals(t);
-            String temp = t.toLowerCase();
+        String result;
+        String t = text;
+        Boolean[] cap = getCapitals(t);
+        String temp = t.toLowerCase();
 
-            if(shortcuts.containsKey(temp)) temp = shortcuts.get(temp);
-            else throw new NoSuchObjectException("Nie ma takiego skrótu.");
+        if(shortcuts.containsKey(temp)) temp = shortcuts.get(temp);
+        else throw new NoSuchObjectException("Nie ma takiego skrótu.");
 
-            char[] res = t.toCharArray();
-            for(int i = 0; i < cap.length; i++){
-                if(cap[i]) res[i] -= 'a' - 'A';
-            }
-            result[k] = String.valueOf(res);
+        char[] res = temp.toCharArray();
+        for(int i = 0; i < temp.length(); i++){
+            if(cap[i]) res[i] -= 'a' - 'A';
         }
+        result = String.valueOf(res);
         return result;
     }
 
