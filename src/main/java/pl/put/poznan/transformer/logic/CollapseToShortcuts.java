@@ -36,7 +36,7 @@ public class CollapseToShortcuts {
     private Boolean[] getCapitals(String text){
         Boolean[] capitals = new Boolean[text.length()];
         for(int i = 0; i < text.length(); i++){
-            capitals[i] = text.charAt(i) >= 'a';
+            capitals[i] = text.charAt(i) <= 'Z' && text.charAt(i) >= 'A';
         }
         return capitals;
     }
