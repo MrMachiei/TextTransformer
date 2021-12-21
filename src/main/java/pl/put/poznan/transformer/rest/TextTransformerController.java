@@ -16,7 +16,7 @@ public class TextTransformerController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@RequestBody Request input) {
         String text = input.getText();
-        String[] transforms = input.getParams();
+        String[] transforms = input.getTransforms();
         // log the parameters
         logger.debug(text);
         logger.debug(Arrays.toString(transforms));
