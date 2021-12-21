@@ -9,7 +9,7 @@ import java.util.Map;
  * klasa ta posiada dwa atrybuty - text, przechowujący transformowaną informację oraz mapę skrótów i ich rozwinięć
  *
  * @author Maciej Walczykowski
- * @version 2.1
+ * @version 3.0
  */
 
 public class ExtendShortcuts {
@@ -31,20 +31,27 @@ public class ExtendShortcuts {
     /**
      * metoda odpowiedzialna za transformację obiektu
      *
-     * @return tekst po rozwinięciu skrótu
-     * @throws NoSuchObjectException kiedy skrót nie zostaje odnaleziony w mapie
+     * @return tekst po rozwinięciu skrótów
      */
 
-    public String transform() throws NoSuchObjectException
-    {
-        //Transformer logic here
+    public String transform(){
+        String[] splited = text.split(" ");
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; splited.length > i; i++){
+                result.append(subTransform(splited[i]));
+                if(i == splited.length - 1) break;
+                result.append(" ");
+        }
+        return result.toString();
+    }
+
+    private String subTransform(String t){
         String result;
-        String t = text;
         Boolean[] cap = getCapitals(t);
         String temp = t.toLowerCase();
 
         if(shortcuts.containsKey(temp)) temp = shortcuts.get(temp);
-        else throw new NoSuchObjectException("Nie ma takiego skrótu.");
+        else return t;
 
         char[] res = temp.toCharArray();
         for(int i = 0; i < cap.length; i++){

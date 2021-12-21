@@ -14,10 +14,6 @@ public class TextTransformer {
     public String transform(String text){
         // of course, normally it would do something based on the transforms
         CollapseToShortcuts e = new CollapseToShortcuts(text);
-        try {
             return e.transform();
-        } catch( Throwable ex){
-            return "NULL";
-        }
     }
 }
