@@ -17,8 +17,6 @@ public class TextTransformer {
 
     public String transform(String text){
         // of course, normally it would do something based on the transforms
-        CollapseToShortcuts e = new CollapseToShortcuts(text);
-            return e.transform();
         for(String transformation : this.transforms){
             System.out.println(transformation);
             if(Objects.equals(transformation, "upperCase")){
