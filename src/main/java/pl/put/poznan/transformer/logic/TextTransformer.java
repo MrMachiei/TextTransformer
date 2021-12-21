@@ -20,11 +20,11 @@ public class TextTransformer {
 
         for(String transformation : this.transforms){
             System.out.println(transformation);
-            if(Objects.equals(transformation, "upper")){
+            if(Objects.equals(transformation, "upperCase")){
                 UpperCase upperCase = new UpperCase(text);
                 text = upperCase.transform();
             }
-            else if(Objects.equals(transformation, "lower")){
+            else if(Objects.equals(transformation, "lowerCase")){
                 LowerCase lowerCase = new LowerCase(text);
                 text = lowerCase.transform();
             }
@@ -32,9 +32,37 @@ public class TextTransformer {
                 Inverse inverse = new Inverse(text);
                 text = inverse.transform();
             }
-            else if(Objects.equals(transformation, "latex")){
+            else if(Objects.equals(transformation, "capitalize")){
+                Capitalize capitalize = new Capitalize(text);
+                text = capitalize.transform();
+            }
+            else if(Objects.equals(transformation, "signsInLatex")){
                 SignsInLatex signsInLatex = new SignsInLatex(text);
                 text = signsInLatex.transform();
+            }
+            else if(Objects.equals(transformation, "collapseToShortcuts")){
+                CollapseToShortcuts collapseToShortcuts = new CollapseToShortcuts(text);
+                try {
+                    text =  collapseToShortcuts.transform();
+                } catch( Throwable ex){
+                    return "NULL";
+                }
+            }
+            else if(Objects.equals(transformation, "extendShortcuts")){
+                ExtendShortcuts extendShortcuts = new ExtendShortcuts(text);
+                try {
+                    text =  extendShortcuts.transform();
+                } catch( Throwable ex){
+                    return "NULL";
+                }
+            }
+            else if(Objects.equals(transformation, "numberToText")){
+                NumberToText numberToText = new NumberToText(text);
+                text = numberToText.transform();
+            }
+            else if(Objects.equals(transformation, "textToNumber")){
+                TextToNumber textToNumber = new TextToNumber(text);
+                text = textToNumber.transform();
             }
         }
         return text;
