@@ -13,8 +13,7 @@
 
     <groupId>pl.put.poznan</groupId>
     <artifactId>io-project-architecture</artifactId>
-    <version>0.10</version>
-
+    <version>1.0</version>
 	<properties>
         <java.version>11</java.version>
     </properties>
@@ -48,14 +47,18 @@
 
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
+       <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <reportOutputDirectory>target</reportOutputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+	
     <repositories>
         <repository>
             <id>spring-releases</id>
