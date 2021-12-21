@@ -4,15 +4,36 @@ import java.rmi.NoSuchObjectException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * klasa odpowiedzialna za rozwijanie predefiniowanych skrótów z zachowaniem wielkośći liter
+ * klasa ta posiada dwa atrybuty - text, przechowujący transformowaną informację oraz mapę skrótów i ich rozwinięć
+ *
+ * @author Maciej Walczykowski
+ * @version 2.1
+ */
+
 public class ExtendShortcuts {
     private final String text;
     private final Map<String, String> shortcuts;
+
+    /**
+     * Konstruktor klasy
+     *
+     * @param text transformowany tekst
+     */
 
     public ExtendShortcuts(String text){
         this.text = text;
         this.shortcuts = new HashMap<>();
         genMap();
     }
+
+    /**
+     * metoda odpowiedzialna za transformację obiektu
+     *
+     * @return tekst po rozwinięciu skrótu
+     * @throws NoSuchObjectException kiedy skrót nie zostaje odnaleziony w mapie
+     */
 
     public String transform() throws NoSuchObjectException
     {
