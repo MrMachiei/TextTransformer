@@ -17,7 +17,6 @@ public class TextTransformer {
 
     public String transform(String text){
         // of course, normally it would do something based on the transforms
-
         for(String transformation : this.transforms){
             System.out.println(transformation);
             if(Objects.equals(transformation, "upperCase")){
@@ -42,19 +41,11 @@ public class TextTransformer {
             }
             else if(Objects.equals(transformation, "collapseToShortcuts")){
                 CollapseToShortcuts collapseToShortcuts = new CollapseToShortcuts(text);
-                try {
                     text =  collapseToShortcuts.transform();
-                } catch( Throwable ex){
-                    return "NULL";
-                }
             }
             else if(Objects.equals(transformation, "extendShortcuts")){
                 ExtendShortcuts extendShortcuts = new ExtendShortcuts(text);
-                try {
                     text =  extendShortcuts.transform();
-                } catch( Throwable ex){
-                    return "NULL";
-                }
             }
             else if(Objects.equals(transformation, "numberToText")){
                 NumberToText numberToText = new NumberToText(text);
