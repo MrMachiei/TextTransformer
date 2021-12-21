@@ -25,7 +25,6 @@ public class Inverse {
                 reversed += Character.toString(this.text.charAt(this.text.length() - j - 1)).toUpperCase();
             }
         }
-        this.text = reversed;
-        return this.text;
+        return reversed;
     }
 }

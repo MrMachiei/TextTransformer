@@ -1,7 +1,7 @@
 package pl.put.poznan.transformer.logic;
 
 public class TextToNumber {
-    private final String[] text;
+    private final String text;
 
     private final String[] NumberTextPL = { "zero", "jeden", "dwa", "trzy", "cztery", "piec", "szesc", "siedem", "osiem", "dziewiec",
                                             "dziesiec", "jedenascie", "dwanascie", "trzynascie", "czternascie", "pietnascie", "szesnascie", "siedemnascie", "osiemnascie", "dziewietnascie",
@@ -12,23 +12,18 @@ public class TextToNumber {
     //100[28] 200[29] 300[30] 400[31] 500[32] 600[33] 700[34] 800[35] 900[36]
     //1000[37] 2000-4000[38] 5000-999999[39]
 
-    private String[] output;
+    private String output;
 
-    public TextToNumber(String[] text)
+    public TextToNumber(String text)
         {
             this.text = text;
-            this.output = new String[0];
         }
 
-    public String[] transform()
+    public String transform()
     {
-        output = new String[text.length];
-        for(int i = 0; i < text.length; i++)
-        {
             boolean oneNumber = false;
-            output[i] = "";
-            String[] splitted = text[i].split("\\s+");
-            String wordNumber = "";
+            output = "";
+            String[] splitted = text.split("\\s+");
             int Number = 0;
             int level = 0;
             for(int j = 0; j < splitted.length; j++)
@@ -47,7 +42,7 @@ public class TextToNumber {
                         int newLevel = levelCheck(Index, level);
                         if(newLevel == 0)
                         {
-                            output[i] += String.valueOf(Number) + " ";
+                            output += String.valueOf(Number) + " ";
 
                             Number = 0;
                             level = levelCheck(Index, 10); // entry
@@ -64,16 +59,16 @@ public class TextToNumber {
                     if(oneNumber)
                     {
                         oneNumber = false;
-                        output[i] += String.valueOf(Number) + " ";
+                        output += String.valueOf(Number) + " ";
                     }
-                    output[i] += splitted[j] + " ";
+                    output += splitted[j] + " ";
                 }
             }
             if(oneNumber)
             {
-                output[i] += String.valueOf(Number);
+                output += String.valueOf(Number);
             }
-        }
+
         return output;
     }
 

@@ -1,7 +1,7 @@
 package pl.put.poznan.transformer.logic;
 
 public class NumberToText {
-    private final String[] text;
+    private final String text;
 
     private final String[] NumberTextPL = { "zero", "jeden", "dwa", "trzy", "cztery", "piec", "szesc", "siedem", "osiem", "dziewiec",
                                             "dziesiec", "jedenascie", "dwanascie", "trzynascie", "czternascie", "pietnascie", "szesnascie", "siedemnascie", "osiemnascie", "dziewietnascie",
@@ -12,22 +12,19 @@ public class NumberToText {
     //100[28] 200[29] 300[30] 400[31] 500[32] 600[33] 700[34] 800[35] 900[36]
     //1000[37] 2000-4000[38] 5000-999999[39]
 
-    public String[] output;
+    private String output;
 
-    public NumberToText(String[] text)
+    public NumberToText(String text)
     {
         this.text = text;
-        this.output = new String[0];
     }
 
-    public String[] transform()
+    public String transform()
     {
-        output = new String[text.length];
         int[][] Numbers = GetNumbers();
         String[] NumStr = new String[Numbers.length];
-        if (Numbers.length == 0) return output;
-        for (int i = 0; i < Numbers.length; i++) {
-            int Number = extractFromString(text[Numbers[i][0]], Numbers[i][1], Numbers[i][2]);
+        for(int i = 0; i < Numbers.length; i++) {
+            int Number = extractFromString(text, Numbers[i][0], Numbers[i][1]);
 
             if (Number == 0) NumStr[i] = NumberTextPL[0];
             else {
@@ -37,7 +34,7 @@ public class NumberToText {
         }
         Numbers = CorrectNumbers(Numbers, NumStr);
         for(int i = 0; i < Numbers.length; i++)
-            output[Numbers[i][0]] = InsertString(output[Numbers[i][0]], NumStr[i], Numbers[i][1]);
+            output = InsertString(output, NumStr[i], Numbers[i][0]);
         return output;
     }
 
@@ -46,10 +43,9 @@ public class NumberToText {
         for(int i = 0; i < Numbers.length; i++)
         {
             for(int j = i + 1; j < Numbers.length; j++)
-            if(Numbers[i][0] == Numbers[j][0])
             {
                 int length = NumStr[i].length();
-                Numbers[j][1] += length - Numbers[i][2];
+                Numbers[j][0] += length - Numbers[i][1];
             }
         }
         return Numbers;
@@ -94,55 +90,48 @@ public class NumberToText {
 
     private int[][] GetNumbers()
     {
-
         int counter = 0;
-        int[][] NumbersSpecs = new int[0][3];
-        int[] NumSpecs = {0, 0, 0};
-
-        for(int i = 0; i < text.length; i++)
+        int[][] NumbersSpecs = new int[0][2];
+        int[] NumSpecs = {0, 0};
+        boolean Digit = false;
+        output = "";
+        for(int j = 0; j < text.length(); j++)
         {
-            boolean Digit = false;
-            output[i] = "";
-            for(int j = 0; j < text[i].length(); j++)
+            char Char = text.charAt(j);
+            if(Char >= '0' && Char <= '9')
             {
-                char Char = text[i].charAt(j);
-                if(Char >= '0' && Char <= '9')
+                if(!Digit)
                 {
-                    if(!Digit)
-                    {
-                        Digit = true;
-                        NumSpecs[0] = i;
-                        NumSpecs[1] = j;
-                    }
-                }
-                else
-                {
-                    if(Digit) {
-                        Digit = false;
-                        NumSpecs[2] = j - NumSpecs[1];
-                        NumbersSpecs = extendArray(NumbersSpecs);
-                        NumbersSpecs[counter] = NumSpecs;
-                        counter++;
-                        NumSpecs = new int[] {0, 0, 0};
-                    }
-                    output[i] += Char;
+                    Digit = true;
+                    NumSpecs[0] = j;
                 }
             }
-            if(Digit)
+            else
             {
-                NumSpecs[2] = text[i].length() - NumSpecs[1];
-                NumbersSpecs = extendArray(NumbersSpecs);
-                NumbersSpecs[counter] = NumSpecs;
-                counter++;
-                NumSpecs = new int[] {0, 0, 0};
+                if(Digit) {
+                    Digit = false;
+                    NumSpecs[1] = j - NumSpecs[0];
+                    NumbersSpecs = extendArray(NumbersSpecs);
+                    NumbersSpecs[counter] = NumSpecs;
+                    counter++;
+                    NumSpecs = new int[] {0, 0};
+                }
+                output += Char;
             }
+        }
+        if(Digit)
+        {
+            NumSpecs[1] = text.length() - NumSpecs[0];
+            NumbersSpecs = extendArray(NumbersSpecs);
+            NumbersSpecs[counter] = NumSpecs;
+            counter++;
         }
         return NumbersSpecs;
     }
 
     private int[][] extendArray(int[][] OldArray)
     {
-        int[][] NewArray = new int[OldArray.length + 1][3];
+        int[][] NewArray = new int[OldArray.length + 1][2];
         System.arraycopy(OldArray, 0, NewArray, 0, OldArray.length);
 
         return NewArray;
