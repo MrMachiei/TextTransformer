@@ -1,7 +1,5 @@
 package pl.put.poznan.transformer.logic;
 
-import pl.put.poznan.transformer.logic.UpperCase;
-
 import java.util.Objects;
 
 /**
@@ -20,7 +18,7 @@ public class TextTransformer {
         for(String transformation : this.transforms){
             System.out.println(transformation);
             if(Objects.equals(transformation, "upperCase")){
-                UpperCase upperCase = new UpperCase(text);
+                RepetitionsRemove upperCase = new RepetitionsRemove(text);
                 text = upperCase.transform();
             }
             else if(Objects.equals(transformation, "lowerCase")){
@@ -54,6 +52,10 @@ public class TextTransformer {
             else if(Objects.equals(transformation, "textToNumber")){
                 TextToNumber textToNumber = new TextToNumber(text);
                 text = textToNumber.transform();
+            }
+            else if(Objects.equals(transformation, "repetitionRemove")){
+                RepetitionsRemove repetitionsRemove = new RepetitionsRemove(text);
+                text = repetitionsRemove.transform();
             }
         }
         return text;
