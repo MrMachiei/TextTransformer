@@ -9,21 +9,21 @@ import java.util.Map;
  * klasa ta posiada dwa atrybuty - text, przechowujący transformowaną informację oraz mapę skrótów i ich rozwinięć
  *
  * @author Maciej Walczykowski
- * @version 3.0
+ * @version 4.1
  */
 
-public class ExtendShortcuts {
-    private final String text;
+public class ExtendShortcuts extends TextTransformer {
+    private final TextTransformer trans;
     private final Map<String, String> shortcuts;
 
     /**
      * Konstruktor klasy
      *
-     * @param text transformowany tekst
+     * @param trans - nadrzędny dekorator
      */
 
-    public ExtendShortcuts(String text){
-        this.text = text;
+    public ExtendShortcuts(TextTransformer trans){
+        this.trans = trans;
         this.shortcuts = new HashMap<>();
         genMap();
     }
@@ -35,7 +35,7 @@ public class ExtendShortcuts {
      */
 
     public String transform(){
-        String[] splited = text.split(" ");
+        String[] splited = trans.transform().split(" ");
         StringBuilder result = new StringBuilder();
         for(int i = 0; splited.length > i; i++){
                 result.append(subTransform(splited[i]));

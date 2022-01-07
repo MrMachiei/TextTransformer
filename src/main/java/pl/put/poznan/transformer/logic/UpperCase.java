@@ -1,14 +1,15 @@
 package pl.put.poznan.transformer.logic;
 
-public class UpperCase {
-    private final String text;
+public class UpperCase extends TextTransformer{
+    private final TextTransformer trans;
 
-    public UpperCase(String text){
-        this.text = text;
+    public UpperCase(TextTransformer trans){
+        this.trans = trans;
     }
 
+    @Override
     public String transform()
     {
-        return this.text.toUpperCase();
+        return trans.transform().toUpperCase();
     }
 }

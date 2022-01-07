@@ -1,7 +1,7 @@
 package pl.put.poznan.transformer.logic;
 
-public class NumberToText {
-    private final String text;
+public class NumberToText extends TextTransformer{
+    private final TextTransformer trans;
 
     private final String[] NumberTextPL = { "zero", "jeden", "dwa", "trzy", "cztery", "piec", "szesc", "siedem", "osiem", "dziewiec",
                                             "dziesiec", "jedenascie", "dwanascie", "trzynascie", "czternascie", "pietnascie", "szesnascie", "siedemnascie", "osiemnascie", "dziewietnascie",
@@ -14,9 +14,9 @@ public class NumberToText {
 
     private String output;
 
-    public NumberToText(String text)
+    public NumberToText(TextTransformer trans)
     {
-        this.text = text;
+        this.trans = trans;
     }
 
     public String transform()
@@ -24,7 +24,7 @@ public class NumberToText {
         int[][] Numbers = GetNumbers();
         String[] NumStr = new String[Numbers.length];
         for(int i = 0; i < Numbers.length; i++) {
-            int Number = extractFromString(text, Numbers[i][0], Numbers[i][1]);
+            int Number = extractFromString(trans.transform(), Numbers[i][0], Numbers[i][1]);
 
             if (Number == 0) NumStr[i] = NumberTextPL[0];
             else {
@@ -90,6 +90,7 @@ public class NumberToText {
 
     private int[][] GetNumbers()
     {
+        String text = trans.transform();
         int counter = 0;
         int[][] NumbersSpecs = new int[0][2];
         int[] NumSpecs = {0, 0};
