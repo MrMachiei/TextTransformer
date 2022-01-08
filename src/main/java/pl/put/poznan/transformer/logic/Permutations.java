@@ -4,12 +4,33 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 
+/**
+ * Klasa jest odpowiedzialna za utworzenie nowych wyrazów przy użyciu lowoej permutacji
+ *
+ * @author Beata Wiśniewska
+ * @version 3.3
+ */
+
 public class Permutations extends TextTransformer {
 
     private final TextTransformer trans;
+
+    /**
+     * Konstruktor klasy
+     *
+     * @param trans - nadrzedny dekorator
+     */
+
     public Permutations(TextTransformer trans) {
         this.trans = trans;
     }
+
+
+    /**
+     * metoda odpowiedzialna za zmienienie wyrazow poprzez losowa permutacje
+     *
+     * @return tekst po zamianie wyrazow
+     */
 
     @Override
     public String transform() {
