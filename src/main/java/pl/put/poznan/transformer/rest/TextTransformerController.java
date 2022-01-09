@@ -57,6 +57,9 @@ public class TextTransformerController {
             else if(Objects.equals(transformation, "repetitionsRemove")){
                 transformer = new RepetitionsRemove(transformer);
             }
+            else if(Objects.equals(transformation, "permutations")){
+                transformer = new Permutations(transformer);
+            }
         } ////
         return transformer.transform();
     }
