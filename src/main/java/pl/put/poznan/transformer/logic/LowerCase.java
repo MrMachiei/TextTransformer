@@ -11,17 +11,17 @@ import java.rmi.NoSuchObjectException;
  */
 
 
-public class LowerCase {
-    private final String text;
+public class LowerCase extends TextTransformer{
+    private final TextTransformer trans;
 
     /**
      * Konstruktor klasy
      *
-     * @param text transformowany tekst
+     * @param trans - nadrzedny dekorator
      */
 
-    public LowerCase(String text){
-        this.text = text;
+    public LowerCase(TextTransformer trans){
+        this.trans = trans;
     }
 
     /**
@@ -29,9 +29,9 @@ public class LowerCase {
      *
      * @return tekst po zamianie lister na male
      */
-
+    @Override
     public String transform()
     {
-        return this.text.toLowerCase();
+        return trans.transform().toLowerCase();
     }
 }

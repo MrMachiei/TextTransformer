@@ -9,22 +9,22 @@ import java.util.Map;
  * klasa ta posiada dwa atrybuty - text, przechowujący transformowaną informację oraz mapę rozwinięć i ich skrótów
  *
  * @author Maciej Walczykowski
- * @version 3.0
+ * @version 4.1
  */
 
 
-public class CollapseToShortcuts {
-    private final String text;
+public class CollapseToShortcuts  extends TextTransformer{
+    private final TextTransformer trans;
     private final Map<String, String> shortcuts;
 
     /**
      * Konstruktor klasy
      *
-     * @param text transformowany tekst
+     * @param trans - nadrzędny dekorator
      */
 
-    public CollapseToShortcuts(String text){
-        this.text = text;
+    public CollapseToShortcuts(TextTransformer trans){
+        this.trans = trans;
         this.shortcuts = new HashMap<>();
         genMap();
     }
@@ -36,7 +36,7 @@ public class CollapseToShortcuts {
      */
 
     public String transform(){
-        String[] splited = text.split(" ");
+        String[] splited = trans.transform().split(" ");
         StringBuilder result = new StringBuilder();
         for(int i = 0; splited.length > i; i++){
             result.append(subTransform(splited[i]));
