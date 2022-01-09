@@ -54,6 +54,9 @@ public class TextTransformerController {
             else if(Objects.equals(transformation, "textToNumber")){
                 transformer = new TextToNumber(transformer);
             }
+            else if(Objects.equals(transformation, "permutations")){
+                transformer = new Permutations(transformer);
+            }
         } ////
         return transformer.transform();
     }
