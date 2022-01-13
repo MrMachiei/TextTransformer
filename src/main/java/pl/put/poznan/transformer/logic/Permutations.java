@@ -1,14 +1,17 @@
 package pl.put.poznan.transformer.logic;
+import java.util.HashMap; // import the HashMap class
 
 import java.util.Collections;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.lang.Object;
+
 
 /**
  * Klasa jest odpowiedzialna za utworzenie nowych wyrazów przy użyciu lowoej permutacji
  *
  * @author Beata Wiśniewska
- * @version 3.3
+ * @version 4.0
  */
 
 public class Permutations extends TextTransformer {
@@ -34,29 +37,60 @@ public class Permutations extends TextTransformer {
 
     @Override
     public String transform() {
-
+        String text = this.trans.transform();
         StringBuilder result = new StringBuilder();
-        StringBuilder pom = new StringBuilder();
-        ArrayList<Integer> Lista = new ArrayList<Integer>();
-        StringTokenizer st = new StringTokenizer(this.trans.transform());
+        StringBuilder pom;
+        HashMap<Integer, Character> non_ascii_signs = new HashMap<>();
+        ArrayList<Integer> num_list = new ArrayList<>();
 
-        while (st.hasMoreTokens()) {
-            pom = new StringBuilder();
-            String wyraz = st.nextToken().toString();
-
-            for (int i = 0; i < wyraz.length(); i++) {
-                Lista.add(i);
+        // saving positions of signs that shouldn't be permutated
+        for(int i = 0; i < text.length(); i++){
+            // if it is non-alphanumeric or non acscii then save position
+            if(!(
+                    (text.charAt(i) >= 'a' &&  text.charAt(i) <= 'z' )
+                    || (text.charAt(i) >= 'A' &&  text.charAt(i) <= 'Z')
+                    || (text.charAt(i) >= '0' && text.charAt(i) <= '9')
+                    || text.charAt(i) >= 127
+                )
+            ){
+                non_ascii_signs.put(i, text.charAt(i));
             }
-
-            Collections.shuffle(Lista);
-            for (int j = 0; j < wyraz.length(); j++) {
-                pom.append(wyraz.charAt(Lista.get(j)));
-            }
-
-            result.append(pom).append(" ");
-            Lista.clear();
         }
-        return result.toString();
+        //System.out.println(non_ascii_signs);
+
+        int result_index = 0;
+        String[] devidedText = text.split("[^a-zA-Z0-9]+");
+        for(String el : devidedText){
+            num_list.clear();
+            pom = new StringBuilder();
+
+            for (int i = 0; i < el.length(); i++) {
+                num_list.add(i);
+            }
+
+            Collections.shuffle(num_list);
+
+            for (int j = 0; j < el.length(); j++) {
+                pom.append(el.charAt(num_list.get(j)));
+            }
+
+
+            result.append(pom);
+        }
+
+        StringBuilder ans = new StringBuilder();
+        int non_ascii_signs_counter = 0;
+        for(int i = 0; i < text.length(); i++){
+            if(non_ascii_signs.containsKey(i)){
+                ans.append(non_ascii_signs.get(i));
+                non_ascii_signs_counter += 1;
+            }
+            else{
+                ans.append(result.charAt(i - non_ascii_signs_counter));
+            }
+        }
+
+        return ans.toString();
     }
 }
 
