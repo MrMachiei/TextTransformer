@@ -42,7 +42,11 @@ public class DecipherCaesar extends TextTransformer{
             char sign = text.charAt(i);
             int idx = SignAt(sign);
             if(idx == -1) output += sign;
-            else output += Alphabet[(idx - rot) % Alphabet.length];
+            else {
+                int newIdx = idx - rot;
+                while(newIdx<0) newIdx += Alphabet.length;
+                output += Alphabet[newIdx % Alphabet.length];
+            }
         }
         return output;
     }
