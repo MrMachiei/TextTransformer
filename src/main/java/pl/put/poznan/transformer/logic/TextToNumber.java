@@ -96,7 +96,8 @@ public class TextToNumber extends TextTransformer{
         if (Index >= 0 && Index < 20) return Number + Index;
         if (Index >= 20 && Index < 28) return Number + 10 * (Index - 18);
         if (Index >= 28 && Index < 37) return Number + 100 * (Index - 27);
-        if (Index >= 37) return Number * 1000;
+        if (Index == 37) return 1000;
+        if (Index > 37) return Number * 1000;
         return -1;
     }
 
