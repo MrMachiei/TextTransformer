@@ -17,8 +17,7 @@ public class SignsInLatex extends TextTransformer{
      */
 
     public SignsInLatex(TextTransformer trans){
-        this.trans = trans;
-    }
+        this.trans = trans;}
 
     /**
      * metoda odpowiedzialna za zmienienie znaków na wersję odpowiednią w latexie -> dodanie \ przed znaki specjalne
