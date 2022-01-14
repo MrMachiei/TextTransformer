@@ -7,7 +7,7 @@ package pl.put.poznan.transformer.logic;
  *      - Alphabet, przechowuje tablicę znaków alfabetu od A do Z oraz cyfry od 0 do 9.
  *
  * @author Szczepan Mierzejewski
- * @version 1.0
+ * @version 1.1
  */
 
 public class DecipherCaesar extends TextTransformer{
