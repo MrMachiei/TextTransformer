@@ -20,7 +20,7 @@ public class SignsInLatex extends TextTransformer{
         this.trans = trans;}
 
     /**
-     * metoda odpowiedzialna za zmienienie znaków na wersję odpowiednią w latexie -> dodanie \ przed znaki specjalne
+     * metoda odpowiedzialna za zmienienie znaków na wersję odpowiednią w latexie, dodanie backslasha przed znaki specjalne
      *
      * @return tekst po zamianie znaków
      */
