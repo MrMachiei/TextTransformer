@@ -1,5 +1,16 @@
 package pl.put.poznan.transformer.logic;
 
+/**
+ * Klasa odpoiedzialna za zamiane liczb w zapisie tekstowym na zapis liczbowy, zamiana działa dla liczb między 0 a 1000000.
+ * Klasa posiada 3 atrybuty:
+ *      - trans, przchowuje nadrzednego dekoratora.
+ *      - NumberTextPL, tablica String-ow zawierajaca slowne zapisy skladowych liczb.
+ *      - output, przechowuje wynik transformacji
+ *
+ * @author Szczepan Mierzejewski
+ * @version 1.0
+ */
+
 public class TextToNumber extends TextTransformer{
     private final TextTransformer trans;
 
@@ -14,10 +25,22 @@ public class TextToNumber extends TextTransformer{
 
     private String output;
 
+    /**
+     * Konstruktor klasy.
+     *
+     * @param trans - nadrzedny dekorator
+     */
+
     public TextToNumber(TextTransformer trans)
         {
             this.trans = trans;
         }
+
+    /**
+     * metoda odpowiedzialna za transformacje obiektu
+     *
+     * @return tekst po zamianie tekstu na liczby
+     */
 
     public String transform()
     {
