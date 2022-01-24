@@ -40,10 +40,14 @@ public class RepetitionsRemove extends TextTransformer{
         while(st.hasMoreTokens()){
             current = st.nextToken();
             if(! current.equals(last)){
-                out.append(current).append(" ");
+                if(!last.equals("")){
+                    out.append(" ");
+                }
+                out.append(current);
                 last = current;
             }
         }
+
 
         return out.toString();
     }
