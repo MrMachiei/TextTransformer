@@ -59,6 +59,10 @@ public class TextTransformerController {
             }
             else if(Objects.equals(transformation, "permutations")){
                 transformer = new Permutations(transformer);
+            }else if(Objects.equals(transformation, "caesar")) {
+                transformer = new CipherCaesar(transformer);
+            }else if(Objects.equals(transformation, "deCaesar")){
+                transformer = new DecipherCaesar(transformer);
             }
         } ////
         return transformer.transform();
